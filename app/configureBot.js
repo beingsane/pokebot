@@ -8,8 +8,10 @@ export default {
   },
   catcher: {
     enabled: true,
-    ignoreWhitelist: false, // true = catch all pokemon
-    whitelist: [
+    ignoreChannelWhitelist: false,
+    channelWhitelist: [],
+    ignorePokemonWhitelist: false,
+    pokemonWhitelist: [
       'Dratini', 'Dragonair', 'Dragonite',
       'Articuno', 'Zapdos', 'Moltres',
       'Mewtwo', 'Mew', 'Unown',

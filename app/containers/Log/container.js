@@ -28,8 +28,8 @@ export default class Container extends React.PureComponent { // eslint-disable-l
       client.setInterval(this.sendMessage, interval, channel, message);
     }
   }
-  componentWillReceiveProps(newProps) {
-    if (this.props.list.length < newProps.list.length) {
+  componentDidUpdate(prevProps) {
+    if (this.props.list.length > prevProps.list.length) {
       this.bottomOfLog.scrollIntoView({
         behavior: 'smooth',
         block: 'end',
@@ -64,10 +64,12 @@ export default class Container extends React.PureComponent { // eslint-disable-l
   }
   onWildAppearance = (message) => {
     const embed = message.embeds[0];
-    const { catcher } = pokebot;
+    const { catcher, spammer } = pokebot;
     if (embed.title === 'A wild pokémon has appeared!') {
       const image = embed.image.url.match(/([^/]+)(?=\.\w+$)/)[0];
-      if (catcher.ignoreWhitelist || catcher.whitelist.indexOf(pokemon[image]) > -1) {
+      const shouldCatchPokemon = catcher.ignorePokemonWhitelist || catcher.pokemonWhitelist.indexOf(pokemon[image]) > -1;
+      const shouldCatchInChannel = catcher.ignoreChannelWhitelist || spammer.channelWhitelist.indexOf(message.channel.id) > -1;
+      if (shouldCatchPokemon && shouldCatchInChannel) {
         client.channels.get(message.channel.id).send(`p!catch ${pokemon[image]}`);
       }
       this.saveMessage({
