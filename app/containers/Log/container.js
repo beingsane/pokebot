@@ -25,7 +25,7 @@ export default class Container extends React.PureComponent { // eslint-disable-l
         interval,
         message,
       } = pokebot.spammer;
-      client.setInterval(this.sendMessage, interval, channel, message);
+      client.setInterval(this.spamMessage, interval, channel, message);
     }
   }
   componentDidUpdate(prevProps) {
@@ -48,9 +48,19 @@ export default class Container extends React.PureComponent { // eslint-disable-l
   onMessage = (message) => {
     if (message.author.id === POKECORD_USERID) {
       if (message.embeds.length > 0) {
-        this.onWildAppearance(message);
+        this.onWild(message);
       }
+      this.onCatch(message);
       this.onLevelUp(message);
+    }
+  }
+  onCatch = (message) => {
+    if (message.content.includes(`Congratulations <@${client.user.id}>`)) {
+      this.saveMessage({
+        content: message.content.replace(`<@${client.user.id}>`, client.user.username),
+        id: message.id,
+        type: MESSAGE_TYPE.CAUGHT,
+      });
     }
   }
   onLevelUp = (message) => {
@@ -62,22 +72,27 @@ export default class Container extends React.PureComponent { // eslint-disable-l
       });
     }
   }
-  onWildAppearance = (message) => {
+  onWild = (message) => {
     const embed = message.embeds[0];
     const { catcher, spammer } = pokebot;
     if (embed.title === 'A wild pokémon has appeared!') {
       const image = embed.image.url.match(/([^/]+)(?=\.\w+$)/)[0];
       const shouldCatchPokemon = catcher.ignorePokemonWhitelist || catcher.pokemonWhitelist.indexOf(pokemon[image]) > -1;
-      const shouldCatchInChannel = catcher.ignoreChannelWhitelist || spammer.channelWhitelist.indexOf(message.channel.id) > -1;
+      const shouldCatchInChannel = catcher.ignoreChannelWhitelist || catcher.channelWhitelist.indexOf(message.channel.id) > -1;
       if (shouldCatchPokemon && shouldCatchInChannel) {
-        client.channels.get(message.channel.id).send(`p!catch ${pokemon[image]}`);
+        const catchPokemon = () => {
+          this.sendMessage(message.channel.id, `p!catch ${pokemon[image]}`);
+        };
+        setTimeout(catchPokemon, pokebot.catcher.delay);
       }
       this.saveMessage({
         channel: message.channel.name,
+        channelId: message.channel.id,
         content: `A wild ${pokemon[image]} has appeared!`,
         id: message.id,
         image: embed.image.url,
         guild: message.guild.name,
+        pokemon: pokemon[image],
         time: message.createdTimestamp,
         type: MESSAGE_TYPE.WILD,
       });
@@ -89,14 +104,22 @@ export default class Container extends React.PureComponent { // eslint-disable-l
   sendMessage = (channel, message) => {
     client.channels.get(channel).send(message);
   }
-  renderMessageList = (list) => list.map((message) => {
+  spamMessage = (channel, message) => {
+    const i = Math.floor(Math.random() * message.length);
+    this.sendMessage(channel, message[i]);
+  }
+  renderList = (list) => list.map((message) => {
     switch (message.type) {
       case MESSAGE_TYPE.CAUGHT:
         return <CaughtMessage key={message.id} message={message} />;
       case MESSAGE_TYPE.LEVELUP:
         return <LevelUpMessage key={message.id} message={message} />;
-      case MESSAGE_TYPE.WILD:
-        return <WildMessage key={message.id} message={message} />;
+      case MESSAGE_TYPE.WILD: {
+        const catchPokemon = () => {
+          this.sendMessage(message.channelId, `p!catch ${message.pokemon}`);
+        };
+        return <WildMessage key={message.id} message={message} catchPokemon={catchPokemon} />;
+      }
       default:
         return null;
     }
@@ -105,7 +128,7 @@ export default class Container extends React.PureComponent { // eslint-disable-l
     return (
       <div className="container">
         <div className="content">
-          {this.renderMessageList(this.props.list)}
+          {this.renderList(this.props.list)}
           <div ref={(element) => { this.bottomOfLog = element; }} />
         </div>
       </div>

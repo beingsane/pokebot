@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 const Component = (props) => {
-  const { message } = props;
+  const { catchPokemon, message } = props;
   return (
     <article className="media" key={message.id}>
       <figure className="media-left">
@@ -18,7 +18,7 @@ const Component = (props) => {
             <br />
             {message.content}
             <br />
-            <small>{moment(message.time).format('h:mm a')}</small>
+            <small><a onClick={catchPokemon}>Catch</a> · {moment(message.time).format('h:mm a')}</small>
           </p>
         </div>
       </div>

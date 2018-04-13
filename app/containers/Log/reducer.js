@@ -11,9 +11,11 @@ export const initialState = fromJS({
 function reducer(state = initialState, action) {
   switch (action.type) {
     case SAVE_MESSAGE.SUCCESS: {
-      return state.merge({
-        list: state.get('list').toJS().concat(action.payload.message),
-      });
+      const list = state.get('list').toJS().concat(action.payload.message);
+      if (list.length > 100) {
+        list.shift();
+      }
+      return state.merge({ list });
     }
     default:
       return state;

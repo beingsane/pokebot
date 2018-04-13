@@ -1,13 +1,14 @@
-export default {
+const configureBot = {
   token: '',
   spammer: {
     enabled: true,
     channel: '',
-    interval: 1500,
-    message: 'spam',
+    interval: 2000,
+    message: ['dgfs', 'asdef', 'htf', 'cvx', 'dsf', 'jhs', 'a', 'gh', 's'],
   },
   catcher: {
     enabled: true,
+    delay: 3000,
     ignoreChannelWhitelist: false,
     channelWhitelist: [],
     ignorePokemonWhitelist: false,
@@ -34,3 +35,5 @@ export default {
     ],
   },
 };
+
+export default configureBot;

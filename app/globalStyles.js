@@ -12,4 +12,8 @@ injectGlobal`
     min-width: 100%;
     padding: 3rem;
   }
+  .is-vertical-center {
+    display: flex;
+    align-items: center;
+  }
 `;
