@@ -18,7 +18,7 @@ const Component = (props) => {
             <br />
             {message.content}
             <br />
-            <small><a onClick={catchPokemon}>Catch</a> · {moment(message.time).format('h:mm a')}</small>
+            <small><a onClick={catchPokemon} role="presentation">Catch</a> · {moment(message.time).format('h:mm a')}</small>
           </p>
         </div>
       </div>
@@ -27,6 +27,7 @@ const Component = (props) => {
 };
 
 Component.propTypes = {
+  catchPokemon: PropTypes.func,
   message: PropTypes.object,
 };
 
