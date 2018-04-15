@@ -1,24 +1,24 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import CardContent from '../CardContent';
+import MediaLeft from '../MediaLeft';
 
 const children = <p>Paragraph</p>;
 const renderComponent = (props) => shallow(
-  <CardContent {...props}>
+  <MediaLeft {...props}>
     {children}
-  </CardContent>
+  </MediaLeft>
 );
 
-describe('<CardContent />', () => {
-  it('should render CardContent', () => {
+describe('<MediaLeft />', () => {
+  it('should render MediaLeft', () => {
     const renderedComponent = renderComponent();
-    expect(renderedComponent.find('.media-content').length).toEqual(1);
+    expect(renderedComponent.find('.media-left').length).toEqual(1);
   });
 
   it('should have classnames', () => {
     const renderedComponent = renderComponent();
-    expect(renderedComponent.find('.media-content').length).toEqual(1);
+    expect(renderedComponent.find('.media-left').length).toEqual(1);
   });
 
   it('should have children', () => {

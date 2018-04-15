@@ -7,9 +7,8 @@ import pokemon from 'fixtures/pokemon.json';
 
 import Column from 'components/Bulma/Column';
 
-import CaughtMessage from 'components/Messages/Caught';
-import LevelUpMessage from 'components/Messages/LevelUp';
-import WildMessage from 'components/Messages/Wild';
+import PokecordMessage from 'components/Messages/Pokecord';
+import PokemonMessage from 'components/Messages/Pokemon';
 
 import {
   MESSAGE_TYPE,
@@ -50,8 +49,11 @@ export default class Container extends React.PureComponent { // eslint-disable-l
   onCatch = (message) => {
     if (message.content.includes(`Congratulations <@${client.user.id}>`)) {
       this.saveMessage({
+        author: message.author.username,
         content: message.content.replace(`<@${client.user.id}>`, client.user.username),
         id: message.id,
+        image: message.author.avatarURL,
+        time: message.createdTimestamp,
         type: MESSAGE_TYPE.CAUGHT,
       });
     }
@@ -59,8 +61,11 @@ export default class Container extends React.PureComponent { // eslint-disable-l
   onLevelUp = (message) => {
     if (message.content.includes(`Congratulations ${client.user.username}`)) {
       this.saveMessage({
+        author: message.author.username,
         content: message.content.replace(/`/g, ''),
         id: message.id,
+        image: message.author.avatarURL,
+        time: message.createdTimestamp,
         type: MESSAGE_TYPE.LEVELUP,
       });
     }
@@ -82,9 +87,9 @@ export default class Container extends React.PureComponent { // eslint-disable-l
         channel: message.channel.name,
         channelId: message.channel.id,
         content: `A wild ${pokemon[image]} has appeared!`,
+        guild: message.guild.name,
         id: message.id,
         image: embed.image.url,
-        guild: message.guild.name,
         pokemon: pokemon[image],
         time: message.createdTimestamp,
         type: MESSAGE_TYPE.WILD,
@@ -104,14 +109,14 @@ export default class Container extends React.PureComponent { // eslint-disable-l
   renderList = (list) => list.map((message) => {
     switch (message.type) {
       case MESSAGE_TYPE.CAUGHT:
-        return <CaughtMessage key={message.id} message={message} />;
+        return <PokecordMessage key={message.id} message={message} />;
       case MESSAGE_TYPE.LEVELUP:
-        return <LevelUpMessage key={message.id} message={message} />;
+        return <PokecordMessage key={message.id} message={message} />;
       case MESSAGE_TYPE.WILD: {
         const catchPokemon = () => {
           this.sendMessage(message.channelId, `p!catch ${message.pokemon}`);
         };
-        return <WildMessage key={message.id} message={message} catchPokemon={catchPokemon} />;
+        return <PokemonMessage key={message.id} message={message} catchPokemon={catchPokemon} />;
       }
       default:
         return null;

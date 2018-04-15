@@ -17,6 +17,7 @@ const Tag = (props) => {
     isDanger,
     isMedium,
     isLarge,
+    onClick,
   } = props;
 
   const className = classNames('tag', {
@@ -35,7 +36,7 @@ const Tag = (props) => {
   });
 
   return (
-    <span className={className}>
+    <span className={className} onClick={onClick}>
       {children}
     </span>
   );
@@ -55,6 +56,7 @@ Tag.propTypes = {
   isDanger: PropTypes.bool,
   isMedium: PropTypes.bool,
   isLarge: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default Tag;

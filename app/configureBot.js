@@ -1,8 +1,8 @@
 const configureBot = {
-  token: '',
+  token: 'MTE0NTUyNTk1NTE4OTgwMDk5.DZcKqg.F_-Ov2V-xAC0Wk1No7J-cr6o1ys',
   spammer: {
-    enabled: false,
-    channel: '',
+    enabled: true,
+    channel: '423251103531008011',
     interval: 2000,
     message: ['dgfs', 'asdef', 'htf', 'cvx', 'dsf', 'jhs', 'a', 'gh', 's'],
   },
@@ -10,7 +10,7 @@ const configureBot = {
     enabled: false,
     delay: 3000,
     ignoreChannelWhitelist: false,
-    channelWhitelist: [],
+    channelWhitelist: ['423251103531008011'],
     ignorePokemonWhitelist: false,
     pokemonWhitelist: [
       'Snorlax', 'Ditto',
