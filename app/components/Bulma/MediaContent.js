@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CardContent = (props) => {
+const MediaContent = (props) => {
   const {
     children,
   } = props;
@@ -13,8 +13,8 @@ const CardContent = (props) => {
   );
 };
 
-CardContent.propTypes = {
+MediaContent.propTypes = {
   children: PropTypes.any,
 };
 
-export default CardContent;
+export default MediaContent;

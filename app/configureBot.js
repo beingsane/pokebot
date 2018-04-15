@@ -3,17 +3,17 @@ const configureBot = {
   spammer: {
     enabled: true,
     channel: '423251103531008011',
-    interval: 2000,
-    message: ['dgfs', 'asdef', 'htf', 'cvx', 'dsf', 'jhs', 'a', 'gh', 's'],
+    interval: 1500,
+    message: ['dgfs', 'asdef', 'htf', 'cvx', 'dsf', 'jhs', 'a', 'gh', 's', 'asdf', 'asd'],
   },
   catcher: {
     enabled: false,
-    delay: 3000,
+    delay: 0,
     ignoreChannelWhitelist: false,
     channelWhitelist: ['423251103531008011'],
     ignorePokemonWhitelist: false,
     pokemonWhitelist: [
-      'Snorlax', 'Ditto',
+      'Ditto',
       // Legendaries
       'Articuno', 'Zapdos', 'Moltres',
       'Mewtwo', 'Mew', 'Unown',

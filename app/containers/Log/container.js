@@ -22,15 +22,13 @@ export default class Container extends React.PureComponent { // eslint-disable-l
       client.setInterval(this.spamMessage, pokebot.spammer.interval, pokebot.spammer.channel, pokebot.spammer.message);
     }
   }
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.list.length > prevProps.list.length) {
-  //     this.messageLog.scrollIntoView({
-  //       behavior: 'smooth',
-  //       block: 'end',
-  //       inline: 'nearest',
-  //     });
-  //   }
-  // }
+  componentDidUpdate() {
+    this.endOfLog.scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+      inline: 'nearest',
+    });
+  }
   componentWillUnmount() {
     client.removeEventListener('message', this.onMessage);
     if (pokebot.spammer.enabled) {
@@ -126,6 +124,7 @@ export default class Container extends React.PureComponent { // eslint-disable-l
     return (
       <Column isFullHeight isOverflowY>
         {this.renderList(this.props.list)}
+        <div className="media" ref={(element) => { this.endOfLog = element; }} />
       </Column>
     );
   }
