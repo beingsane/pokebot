@@ -1,19 +1,20 @@
 const configureBot = {
   token: '',
   spammer: {
-    enabled: true,
+    enabled: false,
     channel: '',
     interval: 2000,
     message: ['dgfs', 'asdef', 'htf', 'cvx', 'dsf', 'jhs', 'a', 'gh', 's'],
   },
   catcher: {
-    enabled: true,
+    enabled: false,
     delay: 3000,
     ignoreChannelWhitelist: false,
     channelWhitelist: [],
     ignorePokemonWhitelist: false,
     pokemonWhitelist: [
-      'Dratini', 'Dragonair', 'Dragonite',
+      'Snorlax', 'Ditto',
+      // Legendaries
       'Articuno', 'Zapdos', 'Moltres',
       'Mewtwo', 'Mew', 'Unown',
       'Raikou', 'Entei', 'Suicune',
@@ -27,7 +28,6 @@ const configureBot = {
       'Heatran', 'Regigigas', 'Giratina',
       'Cresselia', 'Phione', 'Manaphy',
       'Darkrai', 'Shaymin', 'Arceus',
-      'Riolu', 'Lucario', 'Snorlax', 'Ditto',
       'Arceus', 'Victini', 'Cobalion', 'Terrakion',
       'Virizion', 'Tornadus', 'Thundurus',
       'Reshiram', 'Zekrom', 'Landorus',

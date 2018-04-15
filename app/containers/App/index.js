@@ -1,14 +1,16 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
 
 import Log from 'containers/Log';
 
+import Columns from 'components/Bulma/Columns';
+import Container from 'components/Bulma/Container';
+
 export default function App() {
   return (
-    <div>
-      <Switch>
-        <Route component={Log} />
-      </Switch>
-    </div>
+    <Container>
+      <Columns>
+        <Log />
+      </Columns>
+    </Container>
   );
 }

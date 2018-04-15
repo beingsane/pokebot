@@ -5,6 +5,8 @@ import { client } from 'app';
 import pokebot from 'configureBot';
 import pokemon from 'fixtures/pokemon.json';
 
+import Column from 'components/Bulma/Column';
+
 import CaughtMessage from 'components/Messages/Caught';
 import LevelUpMessage from 'components/Messages/LevelUp';
 import WildMessage from 'components/Messages/Wild';
@@ -16,31 +18,22 @@ import {
 
 export default class Container extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
-    if (pokebot.catcher.enabled) {
-      client.on('message', this.onMessage);
-    }
+    client.on('message', this.onMessage);
     if (pokebot.spammer.enabled) {
-      const {
-        channel,
-        interval,
-        message,
-      } = pokebot.spammer;
-      client.setInterval(this.spamMessage, interval, channel, message);
+      client.setInterval(this.spamMessage, pokebot.spammer.interval, pokebot.spammer.channel, pokebot.spammer.message);
     }
   }
-  componentDidUpdate(prevProps) {
-    if (this.props.list.length > prevProps.list.length) {
-      this.bottomOfLog.scrollIntoView({
-        behavior: 'smooth',
-        block: 'end',
-        inline: 'nearest',
-      });
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.list.length > prevProps.list.length) {
+  //     this.messageLog.scrollIntoView({
+  //       behavior: 'smooth',
+  //       block: 'end',
+  //       inline: 'nearest',
+  //     });
+  //   }
+  // }
   componentWillUnmount() {
-    if (pokebot.catcher.enabled) {
-      client.removeEventListener('message', this.onMessage);
-    }
+    client.removeEventListener('message', this.onMessage);
     if (pokebot.spammer.enabled) {
       client.clearInterval(this.spamInterval);
     }
@@ -79,7 +72,7 @@ export default class Container extends React.PureComponent { // eslint-disable-l
       const image = embed.image.url.match(/([^/]+)(?=\.\w+$)/)[0];
       const shouldCatchPokemon = catcher.ignorePokemonWhitelist || catcher.pokemonWhitelist.indexOf(pokemon[image]) > -1;
       const shouldCatchInChannel = catcher.ignoreChannelWhitelist || catcher.channelWhitelist.indexOf(message.channel.id) > -1;
-      if (shouldCatchPokemon && shouldCatchInChannel) {
+      if (pokebot.catcher.enabled && shouldCatchPokemon && shouldCatchInChannel) {
         const catchPokemon = () => {
           this.sendMessage(message.channel.id, `p!catch ${pokemon[image]}`);
         };
@@ -126,12 +119,9 @@ export default class Container extends React.PureComponent { // eslint-disable-l
   });
   render() {
     return (
-      <div className="container">
-        <div className="content">
-          {this.renderList(this.props.list)}
-          <div ref={(element) => { this.bottomOfLog = element; }} />
-        </div>
-      </div>
+      <Column isFullHeight isOverflowY>
+        {this.renderList(this.props.list)}
+      </Column>
     );
   }
 }

@@ -10,10 +10,15 @@ injectGlobal`
   #app {
     min-height: 100%;
     min-width: 100%;
-    padding: 3rem;
+    padding: 12px;
   }
-  .is-vertical-center {
-    display: flex;
-    align-items: center;
+  .image.is-rounded img {
+    border-radius: 6px;
+  }
+  .is-fullheight {
+    height: 100vh;
+  }
+  .is-overflow-y {
+    overflow-y: auto;
   }
 `;
