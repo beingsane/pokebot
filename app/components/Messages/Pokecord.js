@@ -11,7 +11,7 @@ import Tag from 'components/Bulma/Tag';
 const Component = (props) => {
   const { message } = props;
   return (
-    <article className="media" key={message.id}>
+    <article className="media fade-in" key={message.id}>
       <MediaLeft>
         <Figure is64 src={message.image} alt={message.author} />
       </MediaLeft>
