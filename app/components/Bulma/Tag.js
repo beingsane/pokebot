@@ -36,7 +36,7 @@ const Tag = (props) => {
   });
 
   return (
-    <span className={className} onClick={onClick}>
+    <span className={className} onClick={onClick} role="presentation">
       {children}
     </span>
   );
