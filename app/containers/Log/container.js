@@ -101,8 +101,18 @@ export default class Container extends React.PureComponent { // eslint-disable-l
     client.channels.get(channel).send(message);
   }
   spamMessage = (channel, message) => {
-    const i = Math.floor(Math.random() * message.length);
-    this.sendMessage(channel, message[i]);
+    switch (message.length) {
+      case 0:
+        break;
+      case 1:
+        this.sendMessage(channel, message[0]);
+        break;
+      default: {
+        const i = Math.floor(Math.random() * message.length);
+        this.sendMessage(channel, message[i]);
+        break;
+      }
+    }
   }
   renderList = (list) => list.map((message) => {
     switch (message.type) {
