@@ -165,6 +165,6 @@ export default class Container extends React.PureComponent { // eslint-disable-l
 }
 
 Container.propTypes = {
-  list: PropTypes.array,
-  saveMessage: PropTypes.func,
+  list: PropTypes.array.isRequired,
+  saveMessage: PropTypes.func.isRequired,
 };
