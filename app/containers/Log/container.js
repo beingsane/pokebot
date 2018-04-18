@@ -106,7 +106,9 @@ export default class Container extends React.PureComponent { // eslint-disable-l
         const timestamp = Math.floor(Date.now());
         this.saveMessage({
           author: client.user.username,
-          content: `The message '${message}' was sent to #${channel.name} on ${channel.guild.name}.`,
+          channel: channel.name,
+          content: message,
+          guild: channel.guild.name,
           id: timestamp,
           image: client.user.avatarURL,
           time: timestamp,

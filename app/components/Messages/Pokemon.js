@@ -23,7 +23,7 @@ const Component = (props) => {
             <br />
             {message.content}
             <br />
-            <small><a><Tag isDanger onClick={catchPokemon}>Catch</Tag></a> {moment(message.time).format('h:mm a')}</small>
+            <a><Tag isDanger onClick={catchPokemon}>Catch</Tag></a> <small>{moment(message.time).format('h:mm a')}</small>
           </p>
         </Content>
       </MediaContent>

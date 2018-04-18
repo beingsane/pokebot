@@ -19,9 +19,9 @@ const Component = (props) => {
       <MediaContent>
         <Content>
           <p>
-            <strong>{message.author}</strong> <Tag isSuccess>User</Tag>
+            <strong>{message.author}</strong> <Tag isPrimary>User</Tag>
             <br />
-            {message.content}
+            <Tag isLight isMedium>{message.content}</Tag> was sent to {message.guild} <small>{`#${message.channel}`}</small>.
             <br />
             <small>{moment(message.time).format('h:mm a')}</small>
           </p>
