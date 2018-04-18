@@ -5,11 +5,13 @@ injectGlobal`
   html,
   body {
     height: 100%;
+    overflow: hidden;
     width: 100%;
   }
   #app {
     min-height: 100%;
     min-width: 100%;
+    overflow: hidden;
     padding: 12px;
   }
   *::-webkit-scrollbar-track {
@@ -29,7 +31,7 @@ injectGlobal`
     -moz-animation: fadein 2s;
     -ms-animation: fadein 2s;
     -o-animation: fadein 2s;
-    -webkit-animation: fadein 2s;  
+    -webkit-animation: fadein 2s;
   }
   @keyframes fadein {
     from { opacity: 0; }
@@ -54,10 +56,15 @@ injectGlobal`
   .image.is-rounded img {
     border-radius: 6px;
   }
-  .is-fullheight {
+  .is-message-log {
     height: 100vh;
-  }
-  .is-overflow-y {
     overflow-y: auto;
+    padding: 2rem 2rem 0 2rem;
+  }
+  .is-sidebar {
+    background-color: #FAFAFA;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 2rem;
   }
 `;

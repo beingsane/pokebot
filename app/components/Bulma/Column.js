@@ -5,11 +5,9 @@ import classNames from 'classnames';
 const Column = (props) => {
   const {
     children,
-    isFullHeight,
+    customClass,
     isHiddenTouch,
     isNarrow,
-    isOverflowY,
-    isSidebar,
     offset,
     span,
     width,
@@ -19,12 +17,11 @@ const Column = (props) => {
   const hasSpan = !isNaN(span);
   const hasWidth = !isNaN(width);
 
-  const className = classNames('column', {
+  const defaultClass = customClass ? `column ${customClass}` : 'column';
+
+  const className = classNames(defaultClass, {
     'is-hidden-touch': isHiddenTouch,
-    'is-fullheight': isFullHeight,
     'is-narrow': isNarrow,
-    'is-overflow-y': isOverflowY,
-    'is-sidebar': isSidebar,
     [`is-offset-${offset}`]: hasOffset && offset,
     [`is-${span}`]: hasSpan && span,
   });
@@ -42,11 +39,9 @@ const Column = (props) => {
 
 Column.propTypes = {
   children: PropTypes.any,
-  isFullHeight: PropTypes.bool,
+  customClass: PropTypes.string,
   isHiddenTouch: PropTypes.bool,
   isNarrow: PropTypes.bool,
-  isOverflowY: PropTypes.bool,
-  isSidebar: PropTypes.bool,
   offset: PropTypes.string,
   span: PropTypes.string,
   width: PropTypes.string,

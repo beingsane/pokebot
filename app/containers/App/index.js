@@ -1,16 +1,18 @@
 import React from 'react';
 
+import Catcher from 'containers/Catcher';
 import Log from 'containers/Log';
 
+import Column from 'components/Bulma/Column';
 import Columns from 'components/Bulma/Columns';
-import Container from 'components/Bulma/Container';
 
 export default function App() {
   return (
-    <Container>
-      <Columns>
-        <Log />
-      </Columns>
-    </Container>
+    <Columns>
+      <Column customClass="is-sidebar" span="3">
+        <Catcher />
+      </Column>
+      <Log />
+    </Columns>
   );
 }

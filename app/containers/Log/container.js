@@ -80,7 +80,11 @@ export default class Container extends React.PureComponent { // eslint-disable-l
         const catchPokemon = () => {
           this.sendMessage(message.channel.id, `p!catch ${pokemon[image]}`, true);
         };
-        setTimeout(catchPokemon, pokebot.catcher.delay);
+        if (pokebot.catcher.delay > 0) {
+          setTimeout(catchPokemon, pokebot.catcher.delay);
+        } else {
+          catchPokemon();
+        }
       }
       this.saveMessage({
         channel: message.channel.name,
@@ -152,7 +156,7 @@ export default class Container extends React.PureComponent { // eslint-disable-l
   });
   render() {
     return (
-      <Column isFullHeight isOverflowY>
+      <Column customClass="is-message-log">
         {this.renderList(this.props.list)}
         <div className="media" ref={(element) => { this.endOfLog = element; }} />
       </Column>
