@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Field from 'components/Bulma/Field';
+
 export default class Container extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
@@ -45,7 +47,7 @@ export default class Container extends React.PureComponent { // eslint-disable-l
     return (
       <div>
         <label className="label">Auto Catch Delay</label>
-        <div className="field has-addons">
+        <Field hasAddons>
           <p className="control is-expanded">
             <input
               className="input"
@@ -58,8 +60,8 @@ export default class Container extends React.PureComponent { // eslint-disable-l
           <p className="control">
             <a className="button is-static">ms</a>
           </p>
-        </div>
-        <div className="field">
+        </Field>
+        <Field>
           <label className="label">Channel Whitelist</label>
           <div className="control">
             <textarea
@@ -69,8 +71,8 @@ export default class Container extends React.PureComponent { // eslint-disable-l
               value={this.props.channelWhitelistString}
             />
           </div>
-        </div>
-        <div className="field">
+        </Field>
+        <Field>
           <div className="control">
             <label className="checkbox">
               <input
@@ -80,8 +82,8 @@ export default class Container extends React.PureComponent { // eslint-disable-l
               /> Ignore Channel Whitelist
             </label>
           </div>
-        </div>
-        <div className="field">
+        </Field>
+        <Field>
           <label className="label">Pokémon Whitelist</label>
           <div className="control">
             <textarea
@@ -91,8 +93,8 @@ export default class Container extends React.PureComponent { // eslint-disable-l
               value={this.props.pokemonWhitelistString}
             />
           </div>
-        </div>
-        <div className="field">
+        </Field>
+        <Field>
           <div className="control">
             <label className="checkbox">
               <input
@@ -102,7 +104,7 @@ export default class Container extends React.PureComponent { // eslint-disable-l
               /> Ignore Pokémon Whitelist
             </label>
           </div>
-        </div>
+        </Field>
         <button className={`button is-fullwidth ${enabled ? 'is-danger' : 'is-info'}`} onClick={this.toggleCatcher}>
           {enabled ? 'Stop' : 'Start'} Catcher
         </button>
