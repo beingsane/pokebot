@@ -14,7 +14,7 @@ const Component = (props) => {
   return (
     <Media animateFadeIn key={message.id}>
       <MediaLeft>
-        <Figure is64 src={message.image} alt={message.author} />
+        <Figure is64 isRounded src={message.image} alt={message.author} />
       </MediaLeft>
       <MediaContent>
         <Content>

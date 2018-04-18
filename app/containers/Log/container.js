@@ -78,7 +78,7 @@ export default class Container extends React.PureComponent { // eslint-disable-l
       const shouldCatchInChannel = catcher.ignoreChannelWhitelist || catcher.channelWhitelist.indexOf(message.channel.id) > -1;
       if (pokebot.catcher.enabled && shouldCatchPokemon && shouldCatchInChannel) {
         const catchPokemon = () => {
-          this.sendMessage(message.channel.id, `p!catch ${pokemon[image].toLowerCase()}`, true);
+          this.sendMessage(message.channel.id, `p!catch ${pokemon[image]}`, true);
         };
         setTimeout(catchPokemon, pokebot.catcher.delay);
       }

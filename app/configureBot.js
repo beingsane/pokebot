@@ -13,7 +13,7 @@ const configureBot = {
     channelWhitelist: ['423251103531008011'],
     ignorePokemonWhitelist: false,
     pokemonWhitelist: [
-      'Ditto',
+      'Ditto', 'Chansey',
       // Legendaries
       'Articuno', 'Zapdos', 'Moltres',
       'Mewtwo', 'Mew', 'Unown',
