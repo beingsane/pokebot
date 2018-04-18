@@ -12,10 +12,8 @@ function reducer(state = initialState, action) {
   switch (action.type) {
     case SAVE_MESSAGE.SUCCESS: {
       const list = state.get('list').toJS();
-      // list.unshift(action.payload.message);
       list.push(action.payload.message);
       if (list.length > 50) {
-        // list.pop();
         list.shift();
       }
       return state.merge({ list });

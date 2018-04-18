@@ -9,6 +9,7 @@ import Column from 'components/Bulma/Column';
 
 import PokecordMessage from 'components/Messages/Pokecord';
 import PokemonMessage from 'components/Messages/Pokemon';
+import UserMessage from 'components/Messages/User';
 
 import {
   MESSAGE_TYPE,
@@ -77,7 +78,7 @@ export default class Container extends React.PureComponent { // eslint-disable-l
       const shouldCatchInChannel = catcher.ignoreChannelWhitelist || catcher.channelWhitelist.indexOf(message.channel.id) > -1;
       if (pokebot.catcher.enabled && shouldCatchPokemon && shouldCatchInChannel) {
         const catchPokemon = () => {
-          this.sendMessage(message.channel.id, `p!catch ${pokemon[image]}`);
+          this.sendMessage(message.channel.id, `p!catch ${pokemon[image].toLowerCase()}`, true);
         };
         setTimeout(catchPokemon, pokebot.catcher.delay);
       }
@@ -97,8 +98,22 @@ export default class Container extends React.PureComponent { // eslint-disable-l
   saveMessage = (message) => {
     this.props.saveMessage({ message });
   }
-  sendMessage = (channel, message) => {
-    client.channels.get(channel).send(message);
+  sendMessage = (channelID, message, shouldSave = false) => {
+    if (channelID && message) {
+      const channel = client.channels.get(channelID);
+      channel.send(message);
+      if (shouldSave) {
+        const timestamp = Math.floor(Date.now());
+        this.saveMessage({
+          author: client.user.username,
+          content: `The message '${message}' was sent to #${channel.name} on ${channel.guild.name}.`,
+          id: timestamp,
+          image: client.user.avatarURL,
+          time: timestamp,
+          type: MESSAGE_TYPE.USER,
+        });
+      }
+    }
   }
   spamMessage = (channel, message) => {
     switch (message.length) {
@@ -122,10 +137,12 @@ export default class Container extends React.PureComponent { // eslint-disable-l
         return <PokecordMessage key={message.id} message={message} />;
       case MESSAGE_TYPE.WILD: {
         const catchPokemon = () => {
-          this.sendMessage(message.channelId, `p!catch ${message.pokemon}`);
+          this.sendMessage(message.channelId, `p!catch ${message.pokemon}`, true);
         };
         return <PokemonMessage key={message.id} message={message} catchPokemon={catchPokemon} />;
       }
+      case MESSAGE_TYPE.USER:
+        return <UserMessage key={message.id} message={message} />;
       default:
         return null;
     }

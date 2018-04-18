@@ -10,20 +10,20 @@ import MediaLeft from 'components/Bulma/MediaLeft';
 import Tag from 'components/Bulma/Tag';
 
 const Component = (props) => {
-  const { catchPokemon, message } = props;
+  const { message } = props;
   return (
     <Media animateFadeIn key={message.id}>
       <MediaLeft>
-        <Figure is64 src={message.image} alt={message.content} />
+        <Figure is64 src={message.image} alt={message.author} />
       </MediaLeft>
       <MediaContent>
         <Content>
           <p>
-            <strong>{message.guild}</strong> <small>{`#${message.channel}`}</small>
+            <strong>{message.author}</strong> <Tag isSuccess>User</Tag>
             <br />
             {message.content}
             <br />
-            <small><a><Tag isDanger onClick={catchPokemon}>Catch</Tag></a> {moment(message.time).format('h:mm a')}</small>
+            <small>{moment(message.time).format('h:mm a')}</small>
           </p>
         </Content>
       </MediaContent>
@@ -32,7 +32,6 @@ const Component = (props) => {
 };
 
 Component.propTypes = {
-  catchPokemon: PropTypes.func,
   message: PropTypes.object,
 };
 
