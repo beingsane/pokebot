@@ -71,7 +71,7 @@ export default class Container extends React.PureComponent { // eslint-disable-l
   }
   onWild = (message) => {
     const embed = message.embeds[0];
-    const { catcher } = pokebot;
+    const { catcher, spammer } = pokebot;
     if (embed.title === 'A wild pokémon has appeared!') {
       const image = embed.image.url.match(/([^/]+)(?=\.\w+$)/)[0];
       const shouldCatchPokemon = catcher.ignorePokemonWhitelist || catcher.pokemonWhitelist.indexOf(pokemon[image]) > -1;
@@ -89,6 +89,7 @@ export default class Container extends React.PureComponent { // eslint-disable-l
         guild: message.guild.name,
         id: message.id,
         image: embed.image.url,
+        isSpamChannel: message.channel.id === spammer.channel,
         pokemon: pokemon[image],
         time: message.createdTimestamp,
         type: MESSAGE_TYPE.WILD,

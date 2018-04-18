@@ -19,11 +19,11 @@ const Component = (props) => {
       <MediaContent>
         <Content>
           <p>
-            <strong>{message.author}</strong> <Tag isInfo>Bot</Tag>
+            <strong>{message.author}</strong>
             <br />
             {message.content}
             <br />
-            <small>{moment(message.time).format('h:mm a')}</small>
+            <Tag isInfo>Bot</Tag> <small>{moment(message.time).format('h:mm a')}</small>
           </p>
         </Content>
       </MediaContent>

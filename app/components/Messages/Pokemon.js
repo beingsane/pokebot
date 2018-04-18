@@ -23,7 +23,7 @@ const Component = (props) => {
             <br />
             {message.content}
             <br />
-            <a><Tag isDanger onClick={catchPokemon}>Catch</Tag></a> <small>{moment(message.time).format('h:mm a')}</small>
+            <a><Tag isDanger onClick={catchPokemon}>Catch {message.pokemon}</Tag></a> {message.isSpamChannel && <Tag isSuccess>Spammer Channel</Tag>} <small>{moment(message.time).format('h:mm a')}</small>
           </p>
         </Content>
       </MediaContent>

@@ -19,11 +19,11 @@ const Component = (props) => {
       <MediaContent>
         <Content>
           <p>
-            <strong>{message.author}</strong> <Tag isPrimary>User</Tag>
+            <strong>{message.author}</strong>
             <br />
-            <Tag isLight isMedium>{message.content}</Tag> was sent to {message.guild} <small>{`#${message.channel}`}</small>.
+            {message.content}
             <br />
-            <small>{moment(message.time).format('h:mm a')}</small>
+            <Tag isInfo>User</Tag> <Tag isWarning>{message.guild} #{message.channel}</Tag> <small>{moment(message.time).format('h:mm a')}</small>
           </p>
         </Content>
       </MediaContent>
