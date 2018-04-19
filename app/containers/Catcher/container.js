@@ -76,7 +76,7 @@ export default class Container extends React.PureComponent {
         guild: message.guild.name,
         id: message.id,
         image: embed.image.url,
-        isSpamChannel: false, // message.channel.id === spammer.channel
+        isSpamChannel: message.channel.id === this.props.spammerChannel,
         pokemon: POKEMON_LIST[image],
         time: message.createdTimestamp,
         type: MESSAGE_TYPE.WILD,
@@ -99,8 +99,9 @@ export default class Container extends React.PureComponent {
             type: MESSAGE_TYPE.USER,
           });
         };
-        if (delay > 0) {
-          setTimeout(catchPokemon, delay);
+        const delayTime = parseInt(delay, 10);
+        if (delayTime > 0) {
+          setTimeout(catchPokemon, delayTime);
         } else {
           catchPokemon();
         }
@@ -219,6 +220,7 @@ Container.propTypes = {
   pokemonWhitelistArray: PropTypes.array.isRequired,
   pokemonWhitelistString: PropTypes.string.isRequired,
   ignorePokemonWhitelist: PropTypes.bool.isRequired,
+  spammerChannel: PropTypes.string.isRequired,
   saveMessage: PropTypes.func.isRequired,
   updateCatcher: PropTypes.func.isRequired,
 };

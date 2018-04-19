@@ -3,6 +3,7 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import { saveMessageAction } from 'containers/Log/actions';
+import { selectChannel } from 'containers/Spammer/selectors';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -31,6 +32,7 @@ const mapStateToProps = createStructuredSelector({
   pokemonWhitelistArray: selectPokemonWhitelistArray(),
   pokemonWhitelistString: selectPokemonWhitelistString(),
   ignorePokemonWhitelist: selectIgnorePokemonWhitelist(),
+  spammerChannel: selectChannel(),
 });
 
 export const mapDispatchToProps = (dispatch) => ({
