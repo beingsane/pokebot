@@ -13,11 +13,6 @@ export default class Container extends React.PureComponent {
       isReady: false,
     };
   }
-  componentWillReceiveProps(newProps) {
-    if (!this.state.isReady) {
-      client.setInterval(this.spamMessage, newProps.interval, newProps.channel, newProps.messageListArray);
-    }
-  }
   spamMessage = (channel, messageListArray) => {
     if (this.state.isBotting && messageListArray.length > 0) {
       if (messageListArray.length === 1) {
@@ -30,6 +25,11 @@ export default class Container extends React.PureComponent {
   }
   toggleSpammer = (event) => {
     event.preventDefault();
+    if (this.state.isBotting) {
+      client.clearInterval(this.spamInterval);
+    } else {
+      this.spamInterval = client.setInterval(this.spamMessage, this.props.interval, this.props.channel, this.props.messageListArray);
+    }
     this.setState({ isBotting: !this.state.isBotting });
   }
   updateSpammer = (event, field) => {
