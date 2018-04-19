@@ -27,7 +27,6 @@ describe('<Column />', () => {
     expect(renderedComponent.find('.column').length).toEqual(1);
     expect(renderedComponent.find('.is-hidden-touch').length).toEqual(1);
     expect(renderedComponent.find('.is-narrow').length).toEqual(1);
-    expect(renderedComponent.find('.is-sidebar').length).toEqual(1);
     expect(renderedComponent.find('.is-offset-1').length).toEqual(1);
     expect(renderedComponent.find('.is-1').length).toEqual(1);
   });
