@@ -9,13 +9,9 @@ import saga from './saga';
 
 import Container from './container';
 
-import {
-  selectList,
-} from './selectors';
+import { selectList } from './selectors';
 
-import {
-  saveMessageAction,
-} from './actions';
+import { saveMessageAction } from './actions';
 
 const mapStateToProps = createStructuredSelector({
   list: selectList(),

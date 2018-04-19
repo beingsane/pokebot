@@ -10,8 +10,8 @@ import {
 
 export function* saveMessageSaga(action) {
   try {
-    if (action.params.message) {
-      const payload = { message: action.params.message };
+    if (action.params) {
+      const payload = { message: action.params };
       yield put(saveMessageAction.success(payload));
     }
   } catch (error) {

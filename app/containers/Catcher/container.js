@@ -1,18 +1,115 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { client } from 'app';
+
 import Field from 'components/Bulma/Field';
 
-export default class Container extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+import { MESSAGE_TYPE } from 'containers/Log/constants';
+
+import {
+  POKECORD_USERID,
+  POKEMON_LIST,
+} from './constants';
+
+export default class Container extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      enabled: false,
+      isBotting: false,
     };
+  }
+  componentDidMount() {
+    client.on('message', this.onMessage);
+  }
+  componentWillUnmount() {
+    client.removeEventListener('message', this.onMessage);
+  }
+  onMessage = (message) => {
+    if (message.author.id === POKECORD_USERID) {
+      if (message.embeds.length > 0) {
+        this.onWild(message);
+      }
+      this.onCatch(message);
+      this.onLevelUp(message);
+    }
+  }
+  onCatch = (message) => {
+    if (message.content.includes(`Congratulations <@${client.user.id}>`)) {
+      this.props.saveMessage({
+        author: message.author.username,
+        content: message.content.replace(`<@${client.user.id}>`, client.user.username),
+        id: message.id,
+        image: message.author.avatarURL,
+        time: message.createdTimestamp,
+        type: MESSAGE_TYPE.CAUGHT,
+      });
+    }
+  }
+  onLevelUp = (message) => {
+    if (message.content.includes(`Congratulations ${client.user.username}`)) {
+      this.props.saveMessage({
+        author: message.author.username,
+        content: message.content.replace(/`/g, ''),
+        id: message.id,
+        image: message.author.avatarURL,
+        time: message.createdTimestamp,
+        type: MESSAGE_TYPE.LEVELUP,
+      });
+    }
+  }
+  onWild = (message) => {
+    const {
+      delay,
+      channelWhitelistArray,
+      ignoreChannelWhitelist,
+      pokemonWhitelistArray,
+      ignorePokemonWhitelist,
+    } = this.props;
+    const embed = message.embeds[0];
+    if (embed.title === 'A wild pokémon has appeared!') {
+      const image = embed.image.url.match(/([^/]+)(?=\.\w+$)/)[0];
+      this.props.saveMessage({
+        channel: message.channel.name,
+        channelId: message.channel.id,
+        content: `A wild ${POKEMON_LIST[image]} has appeared!`,
+        guild: message.guild.name,
+        id: message.id,
+        image: embed.image.url,
+        isSpamChannel: false, // message.channel.id === spammer.channel
+        pokemon: POKEMON_LIST[image],
+        time: message.createdTimestamp,
+        type: MESSAGE_TYPE.WILD,
+      });
+      const shouldCatchPokemon = ignorePokemonWhitelist || pokemonWhitelistArray.indexOf(POKEMON_LIST[image]) > -1;
+      const shouldCatchInChannel = ignoreChannelWhitelist || channelWhitelistArray.indexOf(message.channel.id) > -1;
+      if (this.state.isBotting && shouldCatchPokemon && shouldCatchInChannel) {
+        const catchPokemon = () => {
+          const content = `p!catch ${POKEMON_LIST[image]}`;
+          client.channels.get(message.channel.id).send(content);
+          const timestamp = Math.floor(Date.now());
+          this.props.saveMessage({
+            author: client.user.username,
+            channel: message.channel.name,
+            content,
+            guild: message.guild.name,
+            id: timestamp,
+            image: client.user.avatarURL,
+            time: timestamp,
+            type: MESSAGE_TYPE.USER,
+          });
+        };
+        if (delay > 0) {
+          setTimeout(catchPokemon, delay);
+        } else {
+          catchPokemon();
+        }
+      }
+    }
   }
   toggleCatcher = (event) => {
     event.preventDefault();
-    this.setState({ enabled: !this.state.enabled });
+    this.setState({ isBotting: !this.state.isBotting });
   }
   updateCatcher = (event, field) => {
     event.preventDefault();
@@ -42,7 +139,7 @@ export default class Container extends React.PureComponent { // eslint-disable-l
     this.updateCatcher(event, 'ignorePokemonWhitelist');
   };
   render() {
-    const { enabled } = this.state;
+    const { isBotting } = this.state;
     /* eslint-disable jsx-a11y/label-has-for */
     return (
       <div>
@@ -105,8 +202,8 @@ export default class Container extends React.PureComponent { // eslint-disable-l
             </label>
           </div>
         </Field>
-        <button className={`button is-fullwidth ${enabled ? 'is-danger' : 'is-info'}`} onClick={this.toggleCatcher}>
-          {enabled ? 'Stop' : 'Start'} Catcher
+        <button className={`button is-fullwidth ${isBotting ? 'is-danger' : 'is-info'}`} onClick={this.toggleCatcher}>
+          {isBotting ? 'Stop' : 'Start'} Catcher
         </button>
       </div>
     );
@@ -116,9 +213,12 @@ export default class Container extends React.PureComponent { // eslint-disable-l
 
 Container.propTypes = {
   delay: PropTypes.string.isRequired,
+  channelWhitelistArray: PropTypes.array.isRequired,
   channelWhitelistString: PropTypes.string.isRequired,
   ignoreChannelWhitelist: PropTypes.bool.isRequired,
+  pokemonWhitelistArray: PropTypes.array.isRequired,
   pokemonWhitelistString: PropTypes.string.isRequired,
   ignorePokemonWhitelist: PropTypes.bool.isRequired,
+  saveMessage: PropTypes.func.isRequired,
   updateCatcher: PropTypes.func.isRequired,
 };

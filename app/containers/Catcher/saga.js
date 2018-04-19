@@ -9,7 +9,8 @@ import {
 } from './actions';
 
 function sanitizeWhitelist(whitelistString) {
-  const sanitizedString = whitelistString.replace(/ /g, '');
+  let sanitizedString = whitelistString.replace(/[^a-z0-9áéíóúñü \.,_-]/gim, '');
+  sanitizedString = sanitizedString.trim();
   return sanitizedString.split(',');
 }
 

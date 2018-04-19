@@ -43,14 +43,13 @@ import configureStore from './configureStore';
 import './globalStyles';
 
 // Initialize Discord client
-import pokebot from './configureBot';
 export const client = new Discord.Client();
-client.login(pokebot.token);
+client.login('MTE0NTUyNTk1NTE4OTgwMDk5.DZcKqg.F_-Ov2V-xAC0Wk1No7J-cr6o1ys');
 
 // Create redux store with history
 const initialState = {};
 const history = createHistory();
-const store = configureStore(initialState, history);
+export const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
 const render = () => {
