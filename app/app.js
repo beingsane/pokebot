@@ -16,8 +16,8 @@ import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
 
-// Import Discord.js
-import Discord from 'discord.js';
+// Import Discord client
+import { client } from 'pokebot/discord';
 
 // Import root app
 import App from 'containers/App';
@@ -42,8 +42,7 @@ import configureStore from './configureStore';
 // Import CSS reset and Global Styles
 import './globalStyles';
 
-// Initialize Discord client
-export const client = new Discord.Client();
+// Discord client login using secret token
 client.login('MTE0NTUyNTk1NTE4OTgwMDk5.DZcKqg.F_-Ov2V-xAC0Wk1No7J-cr6o1ys');
 
 // Create redux store with history

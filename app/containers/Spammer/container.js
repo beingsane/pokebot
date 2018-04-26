@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { client } from 'app';
+import { client } from 'pokebot/discord';
 
 import Field from 'components/Bulma/Field';
 

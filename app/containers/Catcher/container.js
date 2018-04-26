@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { client } from 'app';
+import { client } from 'pokebot/discord';
 
 import Field from 'components/Bulma/Field';
 
@@ -10,7 +10,7 @@ import { MESSAGE_TYPE } from 'containers/Log/constants';
 import {
   POKECORD_USERID,
   POKEMON_LIST,
-} from './constants';
+} from 'pokebot/constants';
 
 export default class Container extends React.PureComponent {
   constructor(props) {

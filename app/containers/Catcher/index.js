@@ -2,15 +2,10 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import { saveMessageAction } from 'containers/Log/actions';
-import { selectChannel } from 'containers/Spammer/selectors';
-
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import reducer from './reducer';
-import saga from './saga';
-
-import Container from './container';
+import reducer from 'pokebot/reducer';
+import saga from 'pokebot/saga';
 
 import {
   selectDelay,
@@ -20,9 +15,13 @@ import {
   selectPokemonWhitelistArray,
   selectPokemonWhitelistString,
   selectIgnorePokemonWhitelist,
-} from './selectors';
+  selectChannel,
+} from 'pokebot/selectors';
 
-import { updateCatcherAction } from './actions';
+import { updateCatcherAction } from 'pokebot/actions';
+import { saveMessageAction } from 'containers/Log/actions';
+
+import Container from './container';
 
 const mapStateToProps = createStructuredSelector({
   delay: selectDelay(),
@@ -41,7 +40,7 @@ export const mapDispatchToProps = (dispatch) => ({
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-const withReducer = injectReducer({ key: 'catcher', reducer });
-const withSaga = injectSaga({ key: 'catcher', saga });
+const withReducer = injectReducer({ key: 'pokebot', reducer });
+const withSaga = injectSaga({ key: 'pokebot', saga });
 
 export default compose(withReducer, withSaga, withConnect)(Container);

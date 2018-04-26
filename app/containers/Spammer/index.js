@@ -4,19 +4,19 @@ import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import reducer from './reducer';
-import saga from './saga';
-
-import Container from './container';
-
-import { updateSpammerAction } from './actions';
+import reducer from 'pokebot/reducer';
+import saga from 'pokebot/saga';
 
 import {
   selectChannel,
   selectInterval,
   selectMessageListArray,
   selectMessageListString,
-} from './selectors';
+} from 'pokebot/selectors';
+
+import { updateSpammerAction } from 'pokebot/actions';
+
+import Container from './container';
 
 const mapStateToProps = createStructuredSelector({
   channel: selectChannel(),
@@ -30,7 +30,7 @@ export const mapDispatchToProps = (dispatch) => ({
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-const withReducer = injectReducer({ key: 'spammer', reducer });
-const withSaga = injectSaga({ key: 'spammer', saga });
+const withReducer = injectReducer({ key: 'pokebot', reducer });
+const withSaga = injectSaga({ key: 'pokebot', saga });
 
 export default compose(withReducer, withSaga, withConnect)(Container);
