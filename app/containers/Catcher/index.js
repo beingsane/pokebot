@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import {
-  selectIsLoggedIn,
   selectDelay,
   selectChannelWhitelistArray,
   selectChannelWhitelistString,
@@ -19,7 +18,6 @@ import { saveMessageAction } from 'containers/Log/actions';
 import Container from './container';
 
 const mapStateToProps = createStructuredSelector({
-  isLoggedIn: selectIsLoggedIn(),
   delay: selectDelay(),
   channelWhitelistArray: selectChannelWhitelistArray(),
   channelWhitelistString: selectChannelWhitelistString(),

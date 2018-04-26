@@ -140,9 +140,6 @@ export default class Container extends React.PureComponent {
     this.updateCatcher(event, 'ignorePokemonWhitelist');
   };
   render() {
-    if (!this.props.isLoggedIn) {
-      return null;
-    }
     const { isBotting } = this.state;
     /* eslint-disable jsx-a11y/label-has-for */
     return (
@@ -216,7 +213,6 @@ export default class Container extends React.PureComponent {
 }
 
 Container.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired,
   delay: PropTypes.string.isRequired,
   channelWhitelistArray: PropTypes.array.isRequired,
   channelWhitelistString: PropTypes.string.isRequired,

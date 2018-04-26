@@ -1,5 +1,4 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { toast } from 'react-toastify';
 
 import { client } from './discord';
 
@@ -37,27 +36,19 @@ export function* loginDiscordSaga(action) {
         token: action.params.token,
         isLoggedIn: true,
       };
-      yield call([toast, toast.success], 'Successfully logged into Discord!');
       yield put(loginDiscordAction.success(payload));
-    } else {
-      yield call([toast, toast.error], 'Request to use token, but token was unavailable to the client.');
     }
   } catch (error) {
-    yield call([toast, toast.error], error.message);
     yield put(loginDiscordAction.failure(error));
   }
 }
 
-export function* logoutDiscordSaga(action) {
+export function* logoutDiscordSaga() {
   try {
     yield call([client, client.destroy]);
     const payload = { isLoggedIn: false };
-    if (action.params.toast !== false) {
-      yield call([toast, toast.success], 'Successfully logged out of Discord!');
-    }
     yield put(logoutDiscordAction.success(payload));
   } catch (error) {
-    yield call([toast, toast.error], error.message);
     yield put(logoutDiscordAction.failure(error));
   }
 }
@@ -67,7 +58,6 @@ export function* updateTokenSaga(action) {
     const payload = { token: action.params.token };
     yield put(updateTokenAction.success(payload));
   } catch (error) {
-    yield call([toast, toast.error], error.message);
     yield put(updateTokenAction.failure(error));
   }
 }
@@ -92,7 +82,6 @@ export function* updateCatcherSaga(action) {
     };
     yield put(updateCatcherAction.success(payload));
   } catch (error) {
-    yield call([toast, toast.error], error.message);
     yield put(updateCatcherAction.failure(error));
   }
 }
@@ -112,7 +101,6 @@ export function* updateSpammerSaga(action) {
     };
     yield put(updateSpammerAction.success(payload));
   } catch (error) {
-    yield call([toast, toast.error], error.message);
     yield put(updateSpammerAction.failure(error));
   }
 }

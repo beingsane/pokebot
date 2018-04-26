@@ -51,9 +51,6 @@ export default class Container extends React.PureComponent {
     this.updateSpammer(event, 'messageListString');
   };
   render() {
-    if (!this.props.isLoggedIn) {
-      return null;
-    }
     const { isBotting } = this.state;
     /* eslint-disable jsx-a11y/label-has-for */
     return (
@@ -106,7 +103,6 @@ export default class Container extends React.PureComponent {
 }
 
 Container.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired,
   channel: PropTypes.string.isRequired,
   interval: PropTypes.string.isRequired,
   messageListArray: PropTypes.array.isRequired, // eslint-disable-line react/no-unused-prop-types

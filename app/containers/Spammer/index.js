@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import {
-  selectIsLoggedIn,
   selectChannel,
   selectInterval,
   selectMessageListArray,
@@ -14,7 +13,6 @@ import { updateSpammerAction } from 'pokebot/actions';
 import Container from './container';
 
 const mapStateToProps = createStructuredSelector({
-  isLoggedIn: selectIsLoggedIn(),
   channel: selectChannel(),
   interval: selectInterval(),
   messageListArray: selectMessageListArray(),
