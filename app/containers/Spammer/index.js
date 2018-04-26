@@ -1,13 +1,8 @@
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
-import reducer from 'pokebot/reducer';
-import saga from 'pokebot/saga';
-
 import {
+  selectIsLoggedIn,
   selectChannel,
   selectInterval,
   selectMessageListArray,
@@ -19,6 +14,7 @@ import { updateSpammerAction } from 'pokebot/actions';
 import Container from './container';
 
 const mapStateToProps = createStructuredSelector({
+  isLoggedIn: selectIsLoggedIn(),
   channel: selectChannel(),
   interval: selectInterval(),
   messageListArray: selectMessageListArray(),
@@ -29,8 +25,4 @@ export const mapDispatchToProps = (dispatch) => ({
   updateSpammer: (params) => dispatch(updateSpammerAction.request(params)),
 });
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-const withReducer = injectReducer({ key: 'pokebot', reducer });
-const withSaga = injectSaga({ key: 'pokebot', saga });
-
-export default compose(withReducer, withSaga, withConnect)(Container);
+export default connect(mapStateToProps, mapDispatchToProps)(Container);

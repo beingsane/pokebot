@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
 
 const selectState = (state) => state.get('pokebot');
+const selectToken = () => createSelector(selectState, (state) => state.get('token'));
+const selectIsLoggedIn = () => createSelector(selectState, (state) => state.get('isLoggedIn'));
 
 const selectCatcherState = (state) => state.getIn(['pokebot', 'catcher']);
 const selectDelay = () => createSelector(selectCatcherState, (state) => state.get('delay'));
@@ -19,8 +21,10 @@ const selectMessageListString = () => createSelector(selectSpammerState, (state)
 
 export {
   selectState,
+  selectToken,
+  selectIsLoggedIn,
+
   selectCatcherState,
-  selectSpammerState,
   selectDelay,
   selectChannelWhitelistArray,
   selectChannelWhitelistString,
@@ -28,6 +32,8 @@ export {
   selectPokemonWhitelistArray,
   selectPokemonWhitelistString,
   selectIgnorePokemonWhitelist,
+
+  selectSpammerState,
   selectChannel,
   selectInterval,
   selectMessageListArray,

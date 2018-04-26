@@ -1,4 +1,5 @@
 import { injectGlobal } from 'styled-components';
+import 'react-toastify/dist/ReactToastify.css';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`

@@ -17,7 +17,7 @@ import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
 
 // Import Discord client
-import { client } from 'pokebot/discord';
+import { client } from 'pokebot/discord'; // eslint-disable-line no-unused-vars
 
 // Import root app
 import App from 'containers/App';
@@ -42,13 +42,10 @@ import configureStore from './configureStore';
 // Import CSS reset and Global Styles
 import './globalStyles';
 
-// Discord client login using secret token
-client.login('MTE0NTUyNTk1NTE4OTgwMDk5.DZcKqg.F_-Ov2V-xAC0Wk1No7J-cr6o1ys');
-
 // Create redux store with history
 const initialState = {};
 const history = createHistory();
-export const store = configureStore(initialState, history);
+const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
 const render = () => {

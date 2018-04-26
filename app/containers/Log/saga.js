@@ -1,12 +1,8 @@
 import { put, takeLatest } from 'redux-saga/effects';
 
-import {
-  SAVE_MESSAGE,
-} from './constants';
+import { SAVE_MESSAGE } from './constants';
 
-import {
-  saveMessageAction,
-} from './actions';
+import { saveMessageAction } from './actions';
 
 export function* saveMessageSaga(action) {
   try {

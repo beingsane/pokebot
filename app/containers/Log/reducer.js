@@ -1,8 +1,6 @@
 import { fromJS } from 'immutable';
 
-import {
-  SAVE_MESSAGE,
-} from './constants';
+import { SAVE_MESSAGE } from './constants';
 
 export const initialState = fromJS({
   list: [],
