@@ -19,6 +19,9 @@ import 'sanitize.css/sanitize.css';
 // Import Discord client
 import { client } from 'pokebot/discord'; // eslint-disable-line no-unused-vars
 
+// Iimport Firebase
+import firebase from 'firebase';
+
 // Import root app
 import App from 'containers/App';
 
@@ -41,6 +44,16 @@ import configureStore from './configureStore';
 
 // Import CSS reset and Global Styles
 import './globalStyles';
+
+// Initialize Firebase
+firebase.initializeApp({
+  apiKey: 'AIzaSyBHPOXq9jp1Z9Xd9MXlj_m5NZWN6FbojF0',
+  authDomain: 'pokebot-84b47.firebaseapp.com',
+  databaseURL: 'https://pokebot-84b47.firebaseio.com',
+  projectId: 'pokebot-84b47',
+  storageBucket: 'pokebot-84b47.appspot.com',
+  messagingSenderId: '596228977663',
+});
 
 // Create redux store with history
 const initialState = {};

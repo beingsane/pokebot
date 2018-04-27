@@ -220,6 +220,7 @@
     "cross-env": "5.0.0",
     "discord.js": "^11.3.2",
     "express": "4.15.3",
+    "firebase": "^4.13.1",
     "fontfaceobserver": "2.0.9",
     "history": "4.6.3",
     "hoist-non-react-statics": "2.1.1",
