@@ -3,6 +3,9 @@ A bot to catch Pokémon when encountered and train Pokémon by spamming.
 
 Knowledge of React and JavaScript will make it easier to understand and modify this bot.
 
+## Website Demo (Working)
+You can view the demo here: [https://pokebot.davyvong.com/](https://pokebot.davyvong.com/)
+
 ## Quick Start
 1. Open command prompt or terminal and navigate to the repository directory.
 2. Install dependencies by using `npm install` or `yarn install`.
