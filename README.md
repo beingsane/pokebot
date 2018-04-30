@@ -6,6 +6,8 @@ Knowledge of React and JavaScript will make it easier to understand and modify t
 ## Website Demo
 You can view the demo here: [https://pokebot.davyvong.com/](https://pokebot.davyvong.com/)
 
+![https://pokebot.davyvong.com/](https://github.com/davyvong/pokebot/blob/master/screenshots/screenshot.png)
+
 ## Prerequisites
 * Node.js
 
