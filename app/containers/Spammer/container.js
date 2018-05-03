@@ -60,6 +60,7 @@ export default class Container extends React.PureComponent {
           <div className="control">
             <input
               className="input"
+              disabled={isBotting}
               onChange={this.updateChannel}
               placeholder="Channel ID"
               type="number"
@@ -72,6 +73,7 @@ export default class Container extends React.PureComponent {
           <p className="control is-expanded">
             <input
               className="input"
+              disabled={isBotting}
               onChange={this.updateInterval}
               placeholder="1000"
               type="number"
@@ -87,6 +89,7 @@ export default class Container extends React.PureComponent {
           <div className="control">
             <textarea
               className="textarea"
+              disabled={isBotting}
               onChange={this.updateMessageList}
               placeholder="List of Messages"
               value={this.props.messageListString}

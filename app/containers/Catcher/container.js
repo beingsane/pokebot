@@ -149,6 +149,7 @@ export default class Container extends React.PureComponent {
           <p className="control is-expanded">
             <input
               className="input"
+              disabled={isBotting}
               onChange={this.updateDelay}
               placeholder="1000"
               type="number"
@@ -164,6 +165,7 @@ export default class Container extends React.PureComponent {
           <div className="control">
             <textarea
               className="textarea"
+              disabled={isBotting}
               onChange={this.updateChannelWhitelist}
               placeholder="List of Channel IDs"
               value={this.props.channelWhitelistString}
@@ -175,6 +177,7 @@ export default class Container extends React.PureComponent {
             <label className="checkbox">
               <input
                 checked={this.props.ignoreChannelWhitelist}
+                disabled={isBotting}
                 onChange={this.updateIgnoreChannelWhitelist}
                 type="checkbox"
               /> Ignore Channel Whitelist
@@ -186,6 +189,7 @@ export default class Container extends React.PureComponent {
           <div className="control">
             <textarea
               className="textarea"
+              disabled={isBotting}
               onChange={this.updatePokemonWhitelist}
               placeholder="Bulbasaur, Charmander, Squirtle"
               value={this.props.pokemonWhitelistString}
@@ -197,6 +201,7 @@ export default class Container extends React.PureComponent {
             <label className="checkbox">
               <input
                 checked={this.props.ignorePokemonWhitelist}
+                disabled={isBotting}
                 onChange={this.updateIgnorePokemonWhitelist}
                 type="checkbox"
               /> Ignore Pokémon Whitelist
