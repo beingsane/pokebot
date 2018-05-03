@@ -5,6 +5,7 @@ import Catcher from 'containers/Catcher';
 import Spammer from 'containers/Spammer';
 
 import Field from 'components/Bulma/Field';
+import Modal from 'components/Bulma/Modal';
 
 export default class Container extends React.PureComponent {
   constructor(props) {
@@ -30,32 +31,32 @@ export default class Container extends React.PureComponent {
   render() {
     const isLoggedIn = this.state.isLoggedIn && this.props.isLoggedIn;
     /* eslint-disable jsx-a11y/label-has-for */
+    if (!isLoggedIn) {
+      return (
+        <Modal isActive>
+          <Field>
+            <label className="label">Discord Token</label>
+            <div className="control">
+              <input className="input" onChange={this.updateToken} placeholder="Discord Token" type="text" value={this.props.token} />
+            </div>
+          </Field>
+          <button className={'button is-fullwidth is-info'} onClick={this.authDiscord}>Login</button>
+        </Modal>
+      );
+    }
     return (
       <div>
         <Field>
           <label className="label">Discord Token</label>
           <div className="control">
-            <input
-              className="input"
-              disabled={isLoggedIn}
-              onChange={this.updateToken}
-              placeholder="Discord Token"
-              type={isLoggedIn ? 'password' : 'text'}
-              value={this.props.token}
-            />
+            <input className="input" disabled placeholder="Discord Token" type="password" value={this.props.token} />
           </div>
         </Field>
-        <button className={`button is-fullwidth ${isLoggedIn ? 'is-danger' : 'is-info'}`} onClick={this.authDiscord}>
-          {isLoggedIn ? 'Logout' : 'Login'}
-        </button>
-        {isLoggedIn && (
-          <div>
-            <br />
-            <Spammer />
-            <br />
-            <Catcher />
-          </div>
-        )}
+        <button className={'button is-fullwidth is-danger'} onClick={this.authDiscord}>Logout</button>
+        <br />
+        <Spammer />
+        <br />
+        <Catcher />
       </div>
     );
     /* eslint-enable jsx-a11y/label-has-for */
