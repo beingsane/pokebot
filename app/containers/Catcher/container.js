@@ -81,7 +81,7 @@ export default class Container extends React.PureComponent {
         time: message.createdTimestamp,
         type: MESSAGE_TYPE.WILD,
       });
-      const shouldCatchPokemon = ignorePokemonWhitelist || pokemonWhitelistArray.indexOf(POKEMON_LIST[image]) > -1;
+      const shouldCatchPokemon = ignorePokemonWhitelist || pokemonWhitelistArray.indexOf(POKEMON_LIST[image].toLowerCase()) > -1;
       const shouldCatchInChannel = ignoreChannelWhitelist || channelWhitelistArray.indexOf(message.channel.id) > -1;
       if (this.state.isBotting && shouldCatchPokemon && shouldCatchInChannel) {
         const catchPokemon = () => {

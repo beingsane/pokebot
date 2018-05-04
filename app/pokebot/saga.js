@@ -20,7 +20,7 @@ import {
 
 function sanitizeWhitelist(whitelistString) {
   let sanitizedString = whitelistString.replace(/[^a-z0-9áéíóúñü .,_-]/gim, '');
-  sanitizedString = sanitizedString.trim();
+  sanitizedString = sanitizedString.trim().toLowerCase();
   return sanitizedString.split(',');
 }
 
