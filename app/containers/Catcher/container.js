@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import md5 from 'md5';
 
 import { client } from 'pokebot/discord';
 
@@ -58,7 +60,7 @@ export default class Container extends React.PureComponent {
       });
     }
   }
-  onWild = (message) => {
+  onWild = async (message) => {
     const {
       delay,
       channelWhitelistArray,
@@ -68,24 +70,24 @@ export default class Container extends React.PureComponent {
     } = this.props;
     const embed = message.embeds[0];
     if (embed.title === 'A wild pokémon has appeared!') {
-      const image = embed.image.url.match(/([^/]+)(?=\.\w+$)/)[0];
+      const hash = await this.requestImage(embed.image.proxyURL);
       this.props.saveMessage({
         channel: message.channel.name,
         channelId: message.channel.id,
-        content: `A wild ${POKEMON_LIST[image]} has appeared!`,
+        content: `A wild ${POKEMON_LIST[hash]} has appeared! (${hash})`,
         guild: message.guild.name,
         id: message.id,
-        image: embed.image.url,
+        image: embed.image.proxyURL,
         isSpamChannel: message.channel.id === this.props.spammerChannel,
-        pokemon: POKEMON_LIST[image],
+        pokemon: POKEMON_LIST[hash],
         time: message.createdTimestamp,
         type: MESSAGE_TYPE.WILD,
       });
-      const shouldCatchPokemon = ignorePokemonWhitelist || pokemonWhitelistArray.indexOf(POKEMON_LIST[image].toLowerCase()) > -1;
+      const shouldCatchPokemon = ignorePokemonWhitelist || pokemonWhitelistArray.indexOf(POKEMON_LIST[hash] && POKEMON_LIST[hash].toLowerCase()) > -1;
       const shouldCatchInChannel = ignoreChannelWhitelist || channelWhitelistArray.indexOf(message.channel.id) > -1;
       if (this.state.isBotting && shouldCatchPokemon && shouldCatchInChannel) {
         const catchPokemon = () => {
-          const content = `p!catch ${POKEMON_LIST[image]}`;
+          const content = `p!catch ${POKEMON_LIST[hash]}`;
           client.channels.get(message.channel.id).send(content);
           const timestamp = Math.floor(Date.now());
           this.props.saveMessage({
@@ -108,6 +110,11 @@ export default class Container extends React.PureComponent {
       }
     }
   }
+  requestImage = (url) => (
+    axios
+    .get(url, { responseType: 'arraybuffer' })
+    .then((response) => md5(new Buffer(response.data, 'binary').toString('base64')))
+  )
   toggleCatcher = (event) => {
     event.preventDefault();
     this.setState({ isBotting: !this.state.isBotting });
