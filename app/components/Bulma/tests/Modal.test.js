@@ -22,8 +22,9 @@ describe('<Modal />', () => {
     });
     expect(renderedComponent.find('.modal').length).toEqual(1);
     expect(renderedComponent.find('.modal-background').length).toEqual(1);
-    expect(renderedComponent.find('.modal-content').length).toEqual(1);
-    expect(renderedComponent.find('.modal-card-body').length).toEqual(1);
+    expect(renderedComponent.find('.modal-card').length).toEqual(1);
+    expect(renderedComponent.find('.message').length).toEqual(1);
+    expect(renderedComponent.find('.message-body').length).toEqual(1);
     expect(renderedComponent.find('.is-active').length).toEqual(1);
   });
 
