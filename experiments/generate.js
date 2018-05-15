@@ -9,25 +9,35 @@ const legacyImages = Object.keys(legacyList);
 const hashList = {};
 const promises = [];
 
-const requestImage = (image) => (
+const requestImage = (pokemon, url) => (
   axios
-  .get(`https://www.pokecord.com/assets/${image}.png`, { responseType: 'arraybuffer' })
+  .get(url, { responseType: 'arraybuffer' })
   .then((response) => md5(new Buffer(response.data, 'binary').toString('base64')))
   .then((hash) => {
-    hashList[hash] = legacyList[image];
+    hashList[hash] = pokemon;
   })
   .catch((error) => {
-    console.log(`https://www.pokecord.com/assets/${image}.png`, chalk.red(error.message));
+    console.log(url, chalk.red(error.message));
   })
 );
 
 legacyImages.forEach((image) => {
-  promises.push(requestImage(image));
+  promises.push(requestImage(legacyList[image], `https://www.pokecord.com/assets/${image}.png`));
+});
+
+const downloadList = {
+  Hariyama: 'https://media.discordapp.net/attachments/445311229020602388/446042250623844363/PokecordSpawn.jpg',
+  Noivern: 'https://media.discordapp.net/attachments/386324037552308224/445821210618757132/PokecordSpawn.jpg',
+  Chingling: 'https://media.discordapp.net/attachments/445311229020602388/445805212683337747/PokecordSpawn.jpg',
+};
+
+Object.keys(downloadList).forEach((pokemon) => {
+  promises.push(requestImage(pokemon, downloadList[pokemon]));
 });
 
 axios.all(promises)
 .then(() => {
-  fs.writeFile('hash.json', JSON.stringify(hashList), 'utf8', () => {
-    console.log(chalk.green('hash.json has been generated.'));
+  fs.writeFile('pokemon.json', JSON.stringify(hashList), 'utf8', () => {
+    console.log(chalk.green('pokemon.json has been generated.'));
   });
 });
