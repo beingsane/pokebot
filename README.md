@@ -11,9 +11,6 @@ Knowledge of React and JavaScript will make it easier to understand and modify t
 5. Start the bot using `npm start`.
 6. Navigate to `http://localhost:3000` using a browser.
 
-## How Get Your Token
-1. Open a browser and navigate to 
-
 ## Website Demo
 You can view the demo at [https://pokebot.davyvong.com/](https://pokebot.davyvong.com/)
 
