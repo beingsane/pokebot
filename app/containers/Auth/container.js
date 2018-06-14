@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Catcher from 'containers/Catcher';
-import Spammer from 'containers/Spammer';
-
 import Field from 'components/Bulma/Field';
 import Modal from 'components/Bulma/Modal';
 
@@ -44,21 +41,7 @@ export default class Container extends React.PureComponent {
         </Modal>
       );
     }
-    return (
-      <div>
-        <Field>
-          <label className="label">Discord Token</label>
-          <div className="control">
-            <input className="input" disabled placeholder="Discord Token" type="password" value={this.props.token} />
-          </div>
-        </Field>
-        <button className={'button is-fullwidth is-danger'} onClick={this.authDiscord}>Logout</button>
-        <br />
-        <Spammer />
-        <br />
-        <Catcher />
-      </div>
-    );
+    return null;
     /* eslint-enable jsx-a11y/label-has-for */
   }
 }

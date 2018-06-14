@@ -64,9 +64,7 @@ export default class Container extends React.PureComponent {
     const {
       delay,
       channelWhitelistArray,
-      ignoreChannelWhitelist,
       pokemonWhitelistArray,
-      ignorePokemonWhitelist,
     } = this.props;
     const embed = message.embeds[0];
     if (embed.title === 'A wild pokémon has appeared!') {
@@ -83,8 +81,8 @@ export default class Container extends React.PureComponent {
         time: message.createdTimestamp,
         type: MESSAGE_TYPE.WILD,
       });
-      const shouldCatchPokemon = ignorePokemonWhitelist || pokemonWhitelistArray.indexOf(POKEMON_LIST[hash] && POKEMON_LIST[hash].toLowerCase()) > -1;
-      const shouldCatchInChannel = ignoreChannelWhitelist || channelWhitelistArray.indexOf(message.channel.id) > -1;
+      const shouldCatchPokemon = pokemonWhitelistArray.indexOf(POKEMON_LIST[hash] && POKEMON_LIST[hash].toLowerCase()) > -1 || pokemonWhitelistArray.length === 0;
+      const shouldCatchInChannel = channelWhitelistArray.indexOf(message.channel.id) > -1 || channelWhitelistArray.length === 0;
       if (this.state.isBotting && shouldCatchPokemon && shouldCatchInChannel) {
         const catchPokemon = () => {
           const content = `p!catch ${POKEMON_LIST[hash]}`;
@@ -178,18 +176,7 @@ export default class Container extends React.PureComponent {
               value={this.props.channelWhitelistString}
             />
           </div>
-        </Field>
-        <Field>
-          <div className="control">
-            <label className="checkbox">
-              <input
-                checked={this.props.ignoreChannelWhitelist}
-                disabled={isBotting}
-                onChange={this.updateIgnoreChannelWhitelist}
-                type="checkbox"
-              /> Ignore Channel Whitelist
-            </label>
-          </div>
+          <small>* Leave empty to catch from all channels.</small>
         </Field>
         <Field>
           <label className="label">Pokémon Whitelist</label>
@@ -202,18 +189,7 @@ export default class Container extends React.PureComponent {
               value={this.props.pokemonWhitelistString}
             />
           </div>
-        </Field>
-        <Field>
-          <div className="control">
-            <label className="checkbox">
-              <input
-                checked={this.props.ignorePokemonWhitelist}
-                disabled={isBotting}
-                onChange={this.updateIgnorePokemonWhitelist}
-                type="checkbox"
-              /> Ignore Pokémon Whitelist
-            </label>
-          </div>
+          <small>* Leave empty to catch all Pokémon.</small>
         </Field>
         <button className={`button is-fullwidth ${isBotting ? 'is-danger' : 'is-info'}`} onClick={this.toggleCatcher}>
           {isBotting ? 'Stop' : 'Start'} Catcher
