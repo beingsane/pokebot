@@ -1,3 +1,6 @@
+# Update June 22, 2018 - No Longer Maintained
+This project is now out of date and currently does not have a workaround to identify Pokemon within the browser. I may make a bot in python or javascript (node) in the future but for now, I would suggest alternatives such as https://github.com/Hyperclaw79/PokeBall-SelfBot.
+
 # Pokécord Bot
 A bot to catch wild Pokémon and train them by spamming.
 
