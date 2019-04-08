@@ -47,12 +47,12 @@ import './globalStyles';
 
 // Initialize Firebase
 firebase.initializeApp({
-  apiKey: 'AIzaSyBHPOXq9jp1Z9Xd9MXlj_m5NZWN6FbojF0',
-  authDomain: 'pokebot-84b47.firebaseapp.com',
-  databaseURL: 'https://pokebot-84b47.firebaseio.com',
-  projectId: 'pokebot-84b47',
-  storageBucket: 'pokebot-84b47.appspot.com',
-  messagingSenderId: '596228977663',
+  apiKey: '',
+  authDomain: '',
+  databaseURL: '',
+  projectId: '',
+  storageBucket: '',
+  messagingSenderId: '',
 });
 
 // Create redux store with history
